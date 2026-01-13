@@ -84,6 +84,7 @@ main.content { flex: 1; max-width: 900px; margin: 0 auto; padding: 28px 18px; }
   right: 18px;
   bottom: 72px;
   width: 280px;
+  max-width: calc(100vw - 36px);
   border-radius: 16px;
   border: 1px solid var(--border);
   background: var(--surface);
@@ -217,4 +218,24 @@ input[type="range"] {
   width: 20px;
   height: 20px;
   fill: currentColor;
+}
+
+body.panel-open .site-footer {
+  padding-bottom: 110px;
+}
+
+@media (max-width: 600px) {
+  .control-panel {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    bottom: 12px;
+    max-height: 60vh;
+    overflow: auto;
+  }
+
+  .control-fab {
+    right: 12px;
+    bottom: 12px;
+  }
 }
