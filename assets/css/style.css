@@ -22,19 +22,6 @@
   --shadow: 0 10px 30px rgba(0,0,0,0.35);
 }
 
-/* Respect OS preference if user hasn't chosen yet */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --bg: #0b0c0f;
-    --text: #e8e8ea;
-    --muted: #a6a6ad;
-    --border: rgba(255,255,255,0.12);
-    --surface: #12131a;
-    --surface-2: #171826;
-    --shadow: 0 10px 30px rgba(0,0,0,0.35);
-  }
-}
-
 /* Damit der Footer auch bei kurzen Seiten unten bleibt */
 html, body { height: 100%; }
 body {
@@ -51,7 +38,15 @@ a { color: inherit; }
 
 /* Navbar */
 .topnav { position: sticky; top: 0; background: var(--surface); border-bottom: 1px solid var(--border); }
-.nav-inner { max-width: 900px; margin: 0 auto; padding: 14px 18px; display: flex; gap: 16px; }
+.nav-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 14px 18px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;      /* NEW */
+  align-items: center;  /* NEW */
+}
 .nav-item { text-decoration: none; color: var(--text); padding: 6px 8px; border-radius: 8px; }
 .nav-item:hover { background: var(--surface-2); }
 
@@ -237,5 +232,16 @@ body.panel-open .site-footer {
   .control-fab {
     right: 12px;
     bottom: 12px;
+  }
+  
+  .nav-inner {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .nav-item,
+  .nav-item:visited {
+    padding: 6px 10px;
+    font-size: 0.95em;
   }
 }
