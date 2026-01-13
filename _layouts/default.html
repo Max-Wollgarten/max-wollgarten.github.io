@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ page.title }} · {{ site.title }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  </head>
+
+  <body>
+    <header class="topnav">
+      <nav class="nav-inner">
+        <a class="nav-item" href="{{ '/' | relative_url }}">Home</a>
+        <a class="nav-item" href="{{ '/research/' | relative_url }}">Research</a>
+        <a class="nav-item" href="{{ '/publications/' | relative_url }}">Publications</a>
+        <a class="nav-item" href="{{ '/cv/' | relative_url }}">CV</a>
+        <a class="nav-item" href="{{ '/contact/' | relative_url }}">Contact</a>
+      </nav>
+    </header>
+
+    <main class="content">
+      {{ content }}
+    </main>
+  </body>
+</html>
