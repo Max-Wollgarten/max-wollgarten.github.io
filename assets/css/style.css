@@ -52,7 +52,7 @@ a { color: inherit; }
 /* Navbar */
 .topnav { position: sticky; top: 0; background: var(--surface); border-bottom: 1px solid var(--border); }
 .nav-inner { max-width: 900px; margin: 0 auto; padding: 14px 18px; display: flex; gap: 16px; }
-.nav-item { text-decoration: none; color: #111; padding: 6px 8px; border-radius: 8px; }
+.nav-item { text-decoration: none; color: var(--text); padding: 6px 8px; border-radius: 8px; }
 .nav-item:hover { background: var(--surface-2); }
 
 /* Content: nimmt den restlichen Platz ein -> Footer wird nach unten gedrückt */
