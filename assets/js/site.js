@@ -61,11 +61,13 @@
 
   // Init saved settings (if not already applied in head)
   try {
-    const savedTheme = localStorage.getItem("theme");
+    const savedTheme = localStorage.getItem("theme") || "light";
     const savedFont = localStorage.getItem("fontScale");
-    if (savedTheme && !getTheme()) root.setAttribute("data-theme", savedTheme);
+    if (!getTheme()) root.setAttribute("data-theme", savedTheme);
     if (savedFont) root.style.setProperty("--font-scale", savedFont);
-  } catch (e) {}
+  } catch (e) {
+    if (!getTheme()) root.setAttribute("data-theme", "light");
+  }
 
   // Events
   fab.addEventListener("click", () => {
@@ -95,9 +97,10 @@
   });
 
   resetBtn.addEventListener("click", () => {
-    setTheme(null);      // go back to OS preference
+    setTheme("light");
     setFontScale(1);
     try {
+      localStorage.setItem("theme", "light");
       localStorage.removeItem("fontScale");
     } catch (e) {}
   });
