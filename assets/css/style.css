@@ -1,6 +1,17 @@
-body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+/* Damit der Footer auch bei kurzen Seiten unten bleibt */
+html, body { height: 100%; }
+body { margin: 0; display: flex; flex-direction: column; }
+
+/* Navbar */
 .topnav { position: sticky; top: 0; background: #fff; border-bottom: 1px solid #eaeaea; }
 .nav-inner { max-width: 900px; margin: 0 auto; padding: 14px 18px; display: flex; gap: 16px; }
 .nav-item { text-decoration: none; color: #111; padding: 6px 8px; border-radius: 8px; }
 .nav-item:hover { background: #f5f5f5; }
-.content { max-width: 900px; margin: 0 auto; padding: 28px 18px; }
+
+/* Content: nimmt den restlichen Platz ein -> Footer wird nach unten gedrückt */
+main.content { flex: 1; max-width: 900px; margin: 0 auto; padding: 28px 18px; }
+
+/* Footer */
+.site-footer { border-top: 1px solid #eaeaea; padding: 18px; }
+.footer-inner { max-width: 900px; margin: 0 auto; }
+.sep { margin: 0 8px; color: #777; }
