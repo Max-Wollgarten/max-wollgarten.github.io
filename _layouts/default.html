@@ -14,16 +14,18 @@
         <a class="nav-item" href="{{ '/research/' | relative_url }}">Research</a>
         <a class="nav-item" href="{{ '/publications/' | relative_url }}">Publications</a>
         <a class="nav-item" href="{{ '/cv/' | relative_url }}">CV</a>
-        <a class="nav-item" href="{{ '/contact/' | relative_url }}">Contact</a>
       </nav>
     </header>
 
+    <!-- DAS ist "main.content": ein <main> mit class="content" -->
     <main class="content">
       {{ content }}
     </main>
+
     <footer class="site-footer">
       <div class="footer-inner">
-        <span><strong>Contact:</strong> <a href="mailto:you@uni.edu">you@uni.edu</a></span>
+        <strong>Contact:</strong>
+        <a href="mailto:you@uni.edu">you@uni.edu</a>
         <span class="sep">·</span>
         <a href="https://github.com/USERNAME">GitHub</a>
         <span class="sep">·</span>
