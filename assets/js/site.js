@@ -59,6 +59,21 @@
     fontValue.textContent = `${Math.round(scale * 100)}%`;
   }
 
+  function openPanel() {
+  syncUI();
+  panel.classList.add("is-open");
+  panel.setAttribute("aria-hidden", "false");
+  fab.setAttribute("aria-expanded", "true");
+  document.body.classList.add("panel-open");
+}
+
+function closePanel() {
+  panel.classList.remove("is-open");
+  panel.setAttribute("aria-hidden", "true");
+  fab.setAttribute("aria-expanded", "false");
+  document.body.classList.remove("panel-open");
+}
+
   // Init saved settings (if not already applied in head)
   try {
     const savedTheme = localStorage.getItem("theme") || "light";
@@ -96,14 +111,16 @@
     setFontScale(fontSlider.value);
   });
 
-  resetBtn.addEventListener("click", () => {
-    setTheme("light");
-    setFontScale(1);
-    try {
-      localStorage.setItem("theme", "light");
-      localStorage.removeItem("fontScale");
-    } catch (e) {}
-  });
-
+resetBtn.addEventListener("click", () => {
+  try { localStorage.removeItem("theme"); } catch (e) {}
+  const osTheme =
+    window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  document.documentElement.setAttribute("data-theme", osTheme);
+  setFontScale(1);
+  try { localStorage.removeItem("fontScale"); } catch (e) {}
+  
   syncUI();
-})();
+});
+
