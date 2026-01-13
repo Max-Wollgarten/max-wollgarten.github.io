@@ -13,76 +13,66 @@
 
   const resetBtn = document.getElementById("uiReset");
 
-  function getTheme() {
+  const prefersDark = () =>
+    window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  function getThemeAttr() {
     return root.getAttribute("data-theme"); // "light" | "dark" | null
   }
 
+  // effektives Theme = Attribut wenn vorhanden, sonst OS
+  function getEffectiveTheme() {
+    const t = getThemeAttr();
+    return t ? t : (prefersDark() ? "dark" : "light");
+  }
+
   function setTheme(theme) {
-    if (!theme) root.removeAttribute("data-theme");
-    else root.setAttribute("data-theme", theme);
-    try {
-      if (theme) localStorage.setItem("theme", theme);
-      else localStorage.removeItem("theme");
-    } catch (e) {}
+    root.setAttribute("data-theme", theme);
+    try { localStorage.setItem("theme", theme); } catch (e) {}
     syncUI();
   }
 
   function setFontScale(scale) {
     root.style.setProperty("--font-scale", String(scale));
-    try {
-      localStorage.setItem("fontScale", String(scale));
-    } catch (e) {}
+    try { localStorage.setItem("fontScale", String(scale)); } catch (e) {}
     syncUI();
   }
 
   function openPanel() {
+    syncUI();
     panel.classList.add("is-open");
     panel.setAttribute("aria-hidden", "false");
     fab.setAttribute("aria-expanded", "true");
+    document.body.classList.add("panel-open");
   }
 
   function closePanel() {
     panel.classList.remove("is-open");
     panel.setAttribute("aria-hidden", "true");
     fab.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("panel-open");
   }
 
   function syncUI() {
-    const theme = getTheme() || "auto";
-
-    const isDark = theme === "dark";
+    const effective = getEffectiveTheme();
+    const isDark = effective === "dark";
     themeToggle.setAttribute("aria-pressed", String(isDark));
-    themeLabel.textContent = theme === "dark" ? "Dark" : "Light";
+    themeLabel.textContent = isDark ? "Dark" : "Light";
 
-    const scale = parseFloat(getComputedStyle(root).getPropertyValue("--font-scale")) || 1;
+    const scale =
+      parseFloat(getComputedStyle(root).getPropertyValue("--font-scale")) || 1;
     fontSlider.value = String(scale);
     fontValue.textContent = `${Math.round(scale * 100)}%`;
   }
 
-  function openPanel() {
-  syncUI();
-  panel.classList.add("is-open");
-  panel.setAttribute("aria-hidden", "false");
-  fab.setAttribute("aria-expanded", "true");
-  document.body.classList.add("panel-open");
-}
-
-function closePanel() {
-  panel.classList.remove("is-open");
-  panel.setAttribute("aria-hidden", "true");
-  fab.setAttribute("aria-expanded", "false");
-  document.body.classList.remove("panel-open");
-}
-
-  // Init saved settings (if not already applied in head)
+  // Init: Theme NICHT überschreiben – das macht schon dein <head>-Script.
+  // Nur FontScale aus localStorage ziehen und UI syncen.
   try {
-    const savedTheme = localStorage.getItem("theme") || "light";
     const savedFont = localStorage.getItem("fontScale");
-    if (!getTheme()) root.setAttribute("data-theme", savedTheme);
     if (savedFont) root.style.setProperty("--font-scale", savedFont);
-  } catch (e) {
-    if (!getTheme()) root.setAttribute("data-theme", "light");
-  }
+  } catch (e) {}
+
+  syncUI();
 
   // Events
   fab.addEventListener("click", () => {
@@ -103,23 +93,24 @@ function closePanel() {
   });
 
   themeToggle.addEventListener("click", () => {
-    const t = getTheme();
-    setTheme(t === "dark" ? "light" : "dark");
+    const effective = getEffectiveTheme();
+    setTheme(effective === "dark" ? "light" : "dark");
   });
 
   fontSlider.addEventListener("input", () => {
     setFontScale(fontSlider.value);
   });
 
-resetBtn.addEventListener("click", () => {
-  try { localStorage.removeItem("theme"); } catch (e) {}
-  const osTheme =
-    window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  document.documentElement.setAttribute("data-theme", osTheme);
-  setFontScale(1);
-  try { localStorage.removeItem("fontScale"); } catch (e) {}
-  
-  syncUI();
-});
+  resetBtn.addEventListener("click", () => {
+    // Theme zurück auf OS
+    try { localStorage.removeItem("theme"); } catch (e) {}
+    const osTheme = prefersDark() ? "dark" : "light";
+    root.setAttribute("data-theme", osTheme);
+
+    // Font zurück
+    try { localStorage.removeItem("fontScale"); } catch (e) {}
+    root.style.setProperty("--font-scale", "1");
+
+    syncUI();
+  });
+})();
