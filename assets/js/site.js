@@ -123,4 +123,3 @@ resetBtn.addEventListener("click", () => {
   
   syncUI();
 });
-
