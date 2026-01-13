@@ -9,11 +9,12 @@
     <script>
       (function () {
         try {
-          var storedTheme = localStorage.getItem("theme"); // "light" | "dark" | null
+          var storedTheme = localStorage.getItem("theme");
+          if (storedTheme !== "light" && storedTheme !== "dark") storedTheme = null;
+          
           var theme =
             storedTheme ||
-            (window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches
+            (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
               ? "dark"
               : "light");
     
