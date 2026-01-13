@@ -120,6 +120,7 @@
         </div>
       </div>
     </footer>
-    <script src="{{ '/assets/js/site.js' | relative_url }}"></script>
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v={{ site.github.build_revision }}">
+    <script src="{{ '/assets/js/site.js' | relative_url }}?v={{ site.github.build_revision }}" defer></script>
   </body>
 </html>
