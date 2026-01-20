@@ -30,11 +30,8 @@ a{color:inherit}
 
 main.content{flex:1; max-width:900px; margin:0 auto; padding:28px 18px}
 
-.site-footer{border-top:1px solid var(--border); padding:18px}
-.footer-inner{
-  max-width:900px; margin:0 auto;
-  display:flex; align-items:center; justify-content:space-between; gap:10px;
-}
+.site-footer{border-top:1px solid var(--border); padding:18px;}
+.footer-inner{max-width:900px; margin:0 auto; display:flex; justify-content:flex-start;}
 .sep{margin:0 8px; color:var(--muted)}
 .footer-icons{display:inline-flex; gap:10px; align-items:center}
 .icon-link{
@@ -47,7 +44,7 @@ main.content{flex:1; max-width:900px; margin:0 auto; padding:28px 18px}
 
 /* controls */
 .control-fab{
-  position:fixed; right:8px; bottom:8px;
+  position:fixed; right:12px; bottom:12px;
   width:42px; height:42px; border-radius:12px;
   border:1px solid var(--border); background:var(--surface); color:var(--text);
   box-shadow:var(--shadow); cursor:pointer; font-size:26px;
@@ -94,7 +91,7 @@ input[type="range"]{width:140px}
 
 /* mobile */
 @media (max-width:600px){
-  .site-footer{padding-bottom:80px;} /* Platz für FAB */
+  .site-footer{padding-bottom:80px; padding-right:70px;} /* Platz für FAB */
 
   .control-fab{right:12px; bottom:12px;}
   .control-panel{left:12px; right:12px; width:auto; bottom:64px; max-height:60vh; overflow:auto;}
